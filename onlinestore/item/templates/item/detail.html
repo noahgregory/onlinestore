@@ -3,9 +3,13 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-5 gap-6">
+{% if item.image %}
+    <div class="grid grid-cols-5 gap-6">
     <div class="col-span-3">
+        <img src="{{ item.image.url }}" class="rounded-xl">
     </div>
+{% endif %}
+
 
     <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
         <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
@@ -37,17 +41,20 @@
 
     <div class="grid grid-cols-3 gap-3">
         {% for item in related_items %}
-            <div>
-                <a href="{% url 'item:detail' item.id %}">
+            {% if item.image %}
+                <div>
+                    <a href="{% url 'item:detail' item.id %}">
                     <div>
+                        <img src="{{ item.image.url }}" class="rounded-t-xl">
                     </div>
+                    {% endif %}
 
                     <div class="p-6 bg-white rounded-b-xl">
                         <h2 class="text-2xl">{{ item.name }}</h2>
                         <p class="text-gray-500">Price: {{ item.price }}</p>
                     </div>
                 </a>
-            </div>
+                </div>
         {% endfor %}
     </div>
 </div>
